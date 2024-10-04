@@ -6,7 +6,6 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-permissions: write-all
 
 name: Java CI with Maven
 
@@ -15,6 +14,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+permissions: write-all
 
 jobs:
   build:
