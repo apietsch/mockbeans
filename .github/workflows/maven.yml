@@ -18,7 +18,7 @@ on:
 permissions: write-all
 
 jobs:
-  build:
+  build-image-and-push-to-registry:
 
     runs-on: ubuntu-latest
 
@@ -59,7 +59,7 @@ jobs:
 
     - name: Build Image
       run: |
-          mvn spring-boot:build-image
+          mvn spring-boot:build-image -DskipTests
 
     - name: Docker Tag and Push
       run: |
