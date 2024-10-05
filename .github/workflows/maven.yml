@@ -53,8 +53,12 @@ jobs:
       run: |
           echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-    - name: Docker Build-Tag-Push my-app
+    - name: Set ARTIFACT_ID environment variable
+      run: |
+          echo "ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
+
+    - name: Docker Build-Tag-Push
       run: |
           mvn spring-boot:build-image
-          docker tag my-app:${{ env.VERSION }} ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+          docker tag ${{ env.ARTIFACT_ID }}:${{ env.VERSION }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ARTIFACT_ID }}:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ARTIFACT_ID }}:latest
